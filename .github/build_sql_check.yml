@@ -1,0 +1,49 @@
+name: Verificar sintaxis SQL
+
+on:
+  push:
+    branches:
+      - main
+      - database
+    paths:
+      - "**.sql"
+  pull_request:
+    paths:
+      - "**.sql"
+
+jobs:
+  check-syntax:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.2
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -proot"
+          --health-interval=5s
+          --health-timeout=2s
+          --health-retries=5
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Esperar a que MySQL esté disponible
+        run: |
+          for i in {1..15}; do
+            if mysqladmin ping -h 127.0.0.1 -proot --silent; then
+              echo "MySQL está listo."
+              break
+            fi
+            echo "Esperando a MySQL..."
+            sleep 4
+          done
+
+      - name: Verificar sintaxis del archivo SQL
+        run: |
+          echo "Verificando BD_Niddu.sql ..."
+          mysql -h 127.0.0.1 -uroot -proot --force < BD_Niddu.sql
