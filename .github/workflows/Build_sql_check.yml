@@ -29,23 +29,7 @@ jobs:
     steps:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
-
-      - name: Esperar a que MySQL esté disponible
-        shell: bash
-        run: |
-          echo "Esperando a que MySQL inicie..."
-          # Forzar formato de fin de línea correcto (por si el runner lo rompe)
-          sed -i 's/\r$//' "$0" || true
-          for i in $(seq 1 15); do
-            if mysqladmin ping -h 127.0.0.1 -proot --silent; then
-              echo "MySQL está listo."
-              break
-            fi
-            echo "Intento $i/15: esperando..."
-            sleep 4
-          done
-
-
+        
       - name: Verificar sintaxis SQL
         shell: bash
         run: |
