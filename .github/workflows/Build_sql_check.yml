@@ -24,7 +24,7 @@ jobs:
           --health-cmd="mysqladmin ping -h localhost -proot"
           --health-interval=5s
           --health-timeout=2s
-          --health-retries=5
+          --health-retries=10
 
     steps:
       - name: Checkout del repositorio
@@ -34,21 +34,18 @@ jobs:
         shell: bash
         run: |
           echo "Esperando a que MySQL inicie..."
-          i=0
-          until mysqladmin ping -h 127.0.0.1 -proot --silent; do
-            i=$((i+1))
-            if [ $i -ge 15 ]; then
-              echo "MySQL no respondió a tiempo."
-              exit 1
+          for i in {1..15}; do
+            if mysqladmin ping -h 127.0.0.1 -proot --silent; then
+              echo "MySQL está listo."
+              break
             fi
             echo "Intento $i/15: esperando..."
             sleep 4
           done
-          echo "MySQL está listo."
 
       - name: Verificar sintaxis SQL
         shell: bash
         run: |
           echo "Verificando sintaxis de BD_Niddu.sql..."
           mysql -h 127.0.0.1 -uroot -proot --execute="source BD_Niddu.sql"
-          echo "Verificacion completada correctamente."
+          echo "Verificacin completada correctamente."
