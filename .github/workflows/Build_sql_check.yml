@@ -27,12 +27,19 @@ jobs:
           --health-retries=5
 
     steps:
-      - name: Checkout del repositorio
-        uses: actions/checkout@v4
-
-      - name: Esperar a que MySQL este disponible
+      - name: Esperar a que MySQL esté disponible
+        shell: bash
         run: |
           echo "Esperando a que MySQL inicie..."
-          for i in {1..15}; do
-            if mysqladmin ping -h 127.0.0.1 -proot --silent; then
-              echo "MySQL está listo."
+          i=0
+          until mysqladmin ping -h 127.0.0.1 -proot --silent; do
+            i=$((i+1))
+            if [ $i -ge 15 ]; then
+              echo "MySQL no respondió a tiempo."
+              exit 1
+            fi
+            echo "Intento $i/15: esperando..."
+            sleep 4
+          done
+          echo "MySQL está listo."
+
