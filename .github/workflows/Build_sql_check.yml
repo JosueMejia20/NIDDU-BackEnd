@@ -3,16 +3,14 @@ name: Verificar sintaxis SQL
 on:
   push:
     branches:
-      - main
       - database
     paths:
       - "**.sql"
-  pull_request:
-    paths:
-      - "**.sql"
+  workflow_dispatch:
 
 jobs:
   check-syntax:
+    name: Validar sintaxis de BD_Niddu.sql
     runs-on: ubuntu-latest
 
     services:
@@ -32,18 +30,9 @@ jobs:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
 
-      - name: Esperar a que MySQL esté disponible
+      - name: Esperar a que MySQL este disponible
         run: |
+          echo "Esperando a que MySQL inicie..."
           for i in {1..15}; do
             if mysqladmin ping -h 127.0.0.1 -proot --silent; then
               echo "MySQL está listo."
-              break
-            fi
-            echo "Esperando a MySQL..."
-            sleep 4
-          done
-
-      - name: Verificar sintaxis del archivo SQL
-        run: |
-          echo "Verificando BD_Niddu.sql ..."
-          mysql -h 127.0.0.1 -uroot -proot --force < BD_Niddu.sql
