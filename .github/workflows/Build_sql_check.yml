@@ -27,8 +27,10 @@ jobs:
           --health-retries=10
 
     steps:
-      - name: Checkout del repositorio
+      - name: Checkout de la rama database
         uses: actions/checkout@v4
+        with:
+          ref: database
 
       - name: Esperar a que MySQL esté disponible
         shell: bash
@@ -47,5 +49,5 @@ jobs:
         shell: bash
         run: |
           echo "Verificando sintaxis de BD_Niddu.sql..."
-          mysql -h 127.0.0.1 -uroot -proot --execute="source BD_Niddu.sql"
+          mysql -h 127.0.0.1 -uroot -proot < BD_Niddu.sql
           echo "Verificación completada correctamente."
