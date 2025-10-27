@@ -10,8 +10,11 @@ on:
 
 jobs:
   check-syntax:
-    name: Validar sintaxis de BD_Niddu.sql
+    name: Validación de sintaxis MySQL
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
 
     services:
       mysql:
@@ -27,12 +30,12 @@ jobs:
           --health-retries=10
 
     steps:
-      - name: Checkout de la rama database
+      - name: Clonar repositorio (rama database)
         uses: actions/checkout@v4
         with:
           ref: database
 
-      - name: Esperar a que MySQL esté disponible
+      - name: Esperando que MySQL inicie
         shell: bash
         run: |
           echo "Esperando a que MySQL inicie..."
@@ -45,9 +48,9 @@ jobs:
             sleep 4
           done
 
-      - name: Verificar sintaxis SQL
+      - name: Verificar sintaxis del archivo BD_Niddu.sql
         shell: bash
         run: |
           echo "Verificando sintaxis de BD_Niddu.sql..."
           mysql -h 127.0.0.1 -uroot -proot < BD_Niddu.sql
-          echo "Verificación completada correctamente."
+          echo "Verificacin completada correctamente."
