@@ -29,10 +29,23 @@ jobs:
     steps:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
-        
+
+      - name: Esperar a que MySQL esté disponible
+        shell: bash
+        run: |
+          echo "Esperando a que MySQL inicie..."
+          for i in {1..15}; do
+            if mysqladmin ping -h 127.0.0.1 -proot --silent; then
+              echo "MySQL está listo."
+              break
+            fi
+            echo "Intento $i/15: esperando..."
+            sleep 4
+          done
+
       - name: Verificar sintaxis SQL
         shell: bash
         run: |
           echo "Verificando sintaxis de BD_Niddu.sql..."
           mysql -h 127.0.0.1 -uroot -proot --execute="source BD_Niddu.sql"
-          echo "Verificacin completada correctamente."
+          echo "Verificación completada correctamente."
