@@ -3,18 +3,13 @@ name: Verificar sintaxis SQL
 on:
   push:
     branches:
-      - database
-    paths:
-      - "**.sql"
-  workflow_dispatch:
+      - database     
+  workflow_dispatch:  
 
 jobs:
   check-syntax:
-    name: Validación de sintaxis MySQL
+    name: Validar sintaxis de BD_Niddu.sql
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
 
     services:
       mysql:
@@ -30,12 +25,12 @@ jobs:
           --health-retries=10
 
     steps:
-      - name: Clonar repositorio (rama database)
+      - name: Checkout del repositorio
         uses: actions/checkout@v4
         with:
-          ref: database
+          ref: database 
 
-      - name: Esperando que MySQL inicie
+      - name: Esperar a que MySQL esté disponible
         shell: bash
         run: |
           echo "Esperando a que MySQL inicie..."
@@ -48,9 +43,9 @@ jobs:
             sleep 4
           done
 
-      - name: Verificar sintaxis del archivo BD_Niddu.sql
+      - name: Verificar sintaxis SQL
         shell: bash
         run: |
           echo "Verificando sintaxis de BD_Niddu.sql..."
-          mysql -h 127.0.0.1 -uroot -proot < BD_Niddu.sql
-          echo "Verificacin completada correctamente."
+          mysql -h 127.0.0.1 -uroot -proot --execute="source BD_Niddu.sql"
+          echo "Verificación completada correctamente."
