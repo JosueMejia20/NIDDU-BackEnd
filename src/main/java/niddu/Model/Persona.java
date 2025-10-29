@@ -3,7 +3,7 @@ package com.niddu.model;
 import jakarta.persistence.*;
 
 @Entity
-public class Persona {
+public class personas {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,3 +22,4 @@ public class Persona {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 }
+
