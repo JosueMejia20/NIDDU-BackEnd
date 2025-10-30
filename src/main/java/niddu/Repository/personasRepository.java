@@ -1,8 +1,9 @@
 package com.niddu.repository;
 
+import com.niddu.model.Persona;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.niddu.model.personas;
+import org.springframework.stereotype.Repository;
 
-public interface personasRepository extends JpaRepository<personas, Long> {
+@Repository
+public interface PersonaRepository extends JpaRepository<Persona, Integer> {
 }
-
