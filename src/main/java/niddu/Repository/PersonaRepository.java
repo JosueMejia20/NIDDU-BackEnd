@@ -1,4 +1,4 @@
-package niddu.repository;
+package niddu.Repository;
 
 import niddu.model.Persona;
 import org.springframework.data.jpa.repository.JpaRepository;
