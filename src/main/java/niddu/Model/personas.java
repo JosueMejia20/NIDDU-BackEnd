@@ -3,7 +3,7 @@ package com.niddu.model;
 import jakarta.persistence.*;
 
 @Entity
-public class Persona {
+public class personas {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
