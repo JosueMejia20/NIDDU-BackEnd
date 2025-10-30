@@ -1,4 +1,4 @@
-package com.Niddu.model;
+package com.niddu.model;
 
 import jakarta.persistence.*;
 
