@@ -1,7 +1,7 @@
 package niddu.controller;
 
-import niddu.Model.Persona;
-import niddu.Repository.PersonaRepository;
+import niddu.model.Persona;
+import niddu.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +18,8 @@ public class PersonaController {
     public List<Persona> listar() {
         return personaRepository.findAll();
     }
+    @GetMapping("/ping")
+    public String ping() {
+        return "pong";
+    }
 }
-@GetMapping("/ping")
-public String ping() {
-    return "pong";
-}
-
