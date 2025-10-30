@@ -19,3 +19,8 @@ public class PersonaController {
         return personaRepository.findAll();
     }
 }
+@GetMapping("/ping")
+public String ping() {
+    return "pong";
+}
+
