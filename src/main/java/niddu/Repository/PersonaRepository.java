@@ -1,6 +1,6 @@
 package niddu.Repository;
 
-import niddu.model.Persona;
+import niddu.Model.Persona;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
