@@ -1,7 +1,7 @@
-package com.niddu.controller;
+package niddu.controller;
 
-import com.niddu.model.Persona;
-import com.niddu.repository.PersonaRepository;
+import niddu.model.Persona;
+import niddu.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

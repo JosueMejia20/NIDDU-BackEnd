@@ -1,4 +1,4 @@
-package com.niddu.model;
+package niddu.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
