@@ -1,7 +1,7 @@
 package niddu.controller;
 
-import niddu.model.Persona;
-import niddu.repository.PersonaRepository;
+import niddu.Model.Persona;
+import niddu.Repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +20,6 @@ public class PersonaController {
     }
     @GetMapping("/ping")
     public String ping() {
-        return "pong";
+        return "Hola Mundo";
     }
 }
