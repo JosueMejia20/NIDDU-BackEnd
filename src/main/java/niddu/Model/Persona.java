@@ -32,5 +32,5 @@ public class Persona {
     private LocalDateTime fechaActualizacion;
 
     @Column(name = "activo", nullable = false)
-    private Boolean activo;
+    private Boolean activo = true;
 }
