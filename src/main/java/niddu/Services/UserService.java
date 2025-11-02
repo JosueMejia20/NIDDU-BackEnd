@@ -47,7 +47,7 @@ public class UserService{
      */
     public UserDto getUserById(int id) {
 
-         UserDto userDto = new UserDto();
+        UserDto userDto = new UserDto();
 
         if(existsById(id)) {
             Usuario user = userRepository.findById(id).orElse(null);
