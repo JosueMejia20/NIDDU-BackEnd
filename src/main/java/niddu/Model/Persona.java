@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Table(name = "personas")
+@Table(name = "Personas")
 public class Persona {
 
     @Id
@@ -31,6 +31,7 @@ public class Persona {
     @Column(name = "fecha_actualizacion", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private LocalDateTime fechaActualizacion;
 
-    @Column(name = "activo", nullable = false)
-    private Boolean activo = true;
+    @OneToOne
+    @JoinColumn(name = "id_usuario", nullable = false, unique = true)
+    private Usuario usuario;
 }
