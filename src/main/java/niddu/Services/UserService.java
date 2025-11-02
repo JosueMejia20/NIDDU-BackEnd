@@ -10,7 +10,7 @@ public class UserService{
     @Autowired
     private UserRepository userRepository;
 
-    public boolean existsById(Integer id) {
+    public boolean existsById(int id) {
         return userRepository.existsById(id);
     }
 }
