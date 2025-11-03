@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import niddu.Model.Dtos.UserDto;
 import niddu.Services.UserService;
 
@@ -15,6 +16,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("existeUsuario/{id}")
     public String existeUsuario(@PathVariable(name = "id") int id) {
         if (userService.existsById(id)) {
@@ -24,6 +26,7 @@ public class UserController {
         return "No existe un usuario con ese ID.";
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("obtenerUsuario/{id}")
     public UserDto obtenerUsuarioPorId(@PathVariable(name = "id") int id) {
         return userService.getUserById(id);
