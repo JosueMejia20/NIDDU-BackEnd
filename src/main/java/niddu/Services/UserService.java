@@ -92,4 +92,9 @@ public class UserService{
 
         return null;
     }
+
+    public void guardarUsuario(Usuario usuario) {
+    userRepository.save(usuario);
+    }
+
 }
