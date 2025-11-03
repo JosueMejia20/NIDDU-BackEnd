@@ -32,6 +32,7 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    @CrossOrigin(origins="http://localhost:3000")
     @GetMapping("validarCredenciales/{userName}/{password}")
     public UserDto validarCredenciales(@PathVariable(name = "userName") String userName, 
                                        @PathVariable(name = "password") String password) {
