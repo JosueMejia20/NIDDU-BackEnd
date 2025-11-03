@@ -10,6 +10,8 @@ import niddu.Model.Dtos.UserDto;
 import niddu.Services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import niddu.Model.Usuario;
+
 
 
 
