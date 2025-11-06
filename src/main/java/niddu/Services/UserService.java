@@ -96,13 +96,24 @@ public class UserService{
         return null;
     }
 
+    /**
+     * Valida las credenciales de un usuario.
+     * @param nvoUsuario usuario.
+     * @return true si el correo no existe y se guarda el usuario, false si el correo ya existe.
+     * @author Mauricio Velásquez
+     */
     public boolean guardarUsuario(Usuario nvoUsuario) {
         if(userRepository.existsByCorreo(nvoUsuario.getCorreo())) {
-            return false;
-        }
+        return false;
+    }
 
-        userRepository.save(nvoUsuario);
-        return true;
+    if(nvoUsuario.getDirecciones() != null) {
+        nvoUsuario.getDirecciones().forEach(d -> d.setUsuario(nvoUsuario));
+    }
+
+    userRepository.save(nvoUsuario);
+
+    return true;
     }
 
 }
