@@ -1,4 +1,4 @@
-package niddu.Model;
+package niddu.Models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,17 +10,14 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "Tipo_Usuario")
-public class TipoUsuario {
-
+@Table(name = "estados_usuario")
+public class EstadoUsuario {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_tipo_usuario")
-    private int id;
+    @Column(name = "id_estado_usuario")
+    private String idEstadoUsuario;
 
-    @Column(name = "nombre", nullable = false)
-    private String nombreUsuario;
-
-    @Column(name = "descripcion")
-    private String descripcion;
+    @Column(name = "nombre_estado", nullable = false)
+    private String nombreEstado;
 }

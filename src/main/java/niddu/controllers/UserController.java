@@ -1,4 +1,4 @@
-package niddu.controller;
+package niddu.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import niddu.Model.Dtos.UserDto;
+
+import niddu.Models.Usuario;
+import niddu.Models.Dtos.UserDto;
 import niddu.Services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import niddu.Model.Usuario;
 
 
 
@@ -39,23 +40,17 @@ public class UserController {
     }
 
     @CrossOrigin(origins="http://localhost:3000")
-    @GetMapping("validarCredenciales/{userName}/{password}")
-    public UserDto validarCredenciales(@PathVariable(name = "userName") String userName, 
+    @GetMapping("validarCredenciales/{email}/{password}")
+    public UserDto validarCredenciales(@PathVariable(name = "email") String email, 
                                        @PathVariable(name = "password") String password) {
 
-        return userService.getUserByUserNameAndPassword(userName, password);
+        return userService.getUserByEmailAndPassword(email, password);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/registrar")
-    public String registrarUsuario(@RequestBody Usuario usuario) {
-        try {
-        userService.guardarUsuario(usuario);
-        return "Usuario registrado correctamente.";
-        } catch (Exception e) {
-        e.printStackTrace();
-        return "Error al registrar el usuario: " + e.getMessage();
-            }
+    public boolean registrarUsuario(@RequestBody Usuario usuario) {
+        return userService.guardarUsuario(usuario);
     }
 
 }

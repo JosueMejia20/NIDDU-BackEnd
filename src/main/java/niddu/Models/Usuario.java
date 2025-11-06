@@ -1,9 +1,7 @@
-package niddu.Model;
+package niddu.Models;
 
 import java.time.LocalDateTime;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,41 +15,34 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "Usuarios")
+@Table(name = "usuarios")
 public class Usuario {
-
-    public enum EstadoUsuario {
-        ACTIVO,
-        DESACTIVADO,
-        SUSPENDIDO
-    }
-
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
-    private int id;
+    private int idUsuario;
 
-    @OneToOne(mappedBy = "usuario")
-    @JsonIgnore
-    private Persona persona;
+    @Column(name = "correo", nullable = false, unique = true)
+    private String correo;
 
-    @Column(name = "nombre_usuario", nullable = false, unique = true)
-    private String userName;
+    @Column(name = "contrasena", nullable = false)
+    private String contrasena;
 
     @ManyToOne
     @JoinColumn(name = "id_tipo_usuario", nullable = false)
     private TipoUsuario tipoUsuario;
 
-    @Column(name = "contrasena", nullable = false)
-    private String contrasena;
-
+    @ManyToOne
+    @JoinColumn(name = "id_estado_usuario", nullable = false)
+    private EstadoUsuario estadoUsuario;
+    
     @Column(name = "foto_perfil")
     private String fotoPerfil;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_persona", nullable = false)
+    private Persona persona;
+
     @Column(name = "fecha_registro", insertable = false, updatable = false)
     private LocalDateTime fechaRegistro;
-
-    @Column(name = "estado")
-    private String estado = EstadoUsuario.ACTIVO.name();
 }

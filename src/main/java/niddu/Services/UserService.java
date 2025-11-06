@@ -2,9 +2,9 @@ package niddu.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import niddu.Model.Usuario;
-import niddu.Model.Dtos.UserDto;
-import niddu.Repository.UserRepository;
+import niddu.Models.Usuario;
+import niddu.Models.Dtos.UserDto;
+import niddu.Repositories.UserRepository;
 
 @Service
 public class UserService{
@@ -20,9 +20,12 @@ public class UserService{
      */
     public UserDto doUserDto(Usuario user) {
         UserDto userDto = new UserDto();
-        userDto.setId(user.getId());
-        userDto.setUserName(user.getUserName());
-        userDto.setEstado(user.getEstado());
+
+        userDto.setId(user.getIdUsuario());
+        userDto.setName(user.getPersona().getNombres() + " " + user.getPersona().getApellidos());
+        userDto.setCorreo(user.getCorreo());
+        userDto.setEstadoUsuario(user.getEstadoUsuario().getNombreEstado());
+        userDto.setFechaCreacion(user.getFechaRegistro().toString());
 
         return userDto;
     }
@@ -66,8 +69,8 @@ public class UserService{
      * @return true si las credenciales son válidas, false en caso contrario.
      * @author Mauricio Velásquez
      */
-    public boolean validatedCredentials(String userName, String password) {
-        Usuario user = userRepository.findByUserNameAndContrasena(userName, password).orElse(null);
+    public boolean validatedCredentials(String email, String password) {
+        Usuario user = userRepository.findByCorreoAndContrasena(email, password).orElse(null);
 
         if(user != null) {
             return true;
@@ -83,8 +86,8 @@ public class UserService{
      * @return el usuario encontrado, si no lo encuentra retorna null.
      * @author Mauricio Velásquez
      */
-    public UserDto getUserByUserNameAndPassword(String userName, String password) {
-        Usuario user = userRepository.findByUserNameAndContrasena(userName, password).orElse(null);
+    public UserDto getUserByEmailAndPassword(String email, String password) {
+        Usuario user = userRepository.findByCorreoAndContrasena(email, password).orElse(null);
 
         if (user != null) {
             return doUserDto(user);
@@ -93,8 +96,13 @@ public class UserService{
         return null;
     }
 
-    public void guardarUsuario(Usuario usuario) {
-    userRepository.save(usuario);
+    public boolean guardarUsuario(Usuario nvoUsuario) {
+        if(userRepository.existsByCorreo(nvoUsuario.getCorreo())) {
+            return false;
+        }
+
+        userRepository.save(nvoUsuario);
+        return true;
     }
 
 }

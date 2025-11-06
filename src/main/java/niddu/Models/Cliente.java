@@ -1,4 +1,4 @@
-package niddu.Model;
+package niddu.Models;
 
 import java.sql.Timestamp;
 import jakarta.persistence.*;
