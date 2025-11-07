@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
-
-import niddu.Models.Usuario;
-import niddu.Models.Dtos.UserDto;
+import niddu.Model.Dtos.UserDto;
 import niddu.Services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import niddu.Models.Usuario;
 
 
 
@@ -39,27 +38,24 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-<<<<<<< HEAD:src/main/java/niddu/controllers/UserController.java
-    @CrossOrigin(origins="http://localhost:3000")
-    @GetMapping("validarCredenciales/{email}/{password}")
-    public UserDto validarCredenciales(@PathVariable(name = "email") String email, 
-                                       @PathVariable(name = "password") String password) {
-
-        return userService.getUserByEmailAndPassword(email, password);
-=======
  @CrossOrigin(origins="http://localhost:3000")
  @GetMapping("validarCredenciales/{correo}/{password}")
     public UserDto validarCredenciales(@PathVariable(name = "correo") String correo, 
                                    @PathVariable(name = "password") String password) {
 
     return userService.getUserByCorreoAndPassword(correo, password);
->>>>>>> 3a6e192 (EndPoint de Usuarios actualizado):src/main/java/niddu/controller/UserController.java
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/registrar")
-    public boolean registrarUsuario(@RequestBody Usuario usuario) {
-        return userService.guardarUsuario(usuario);
+    public String registrarUsuario(@RequestBody Usuario usuario) {
+        try {
+        userService.guardarUsuario(usuario);
+        return "Usuario registrado correctamente.";
+        } catch (Exception e) {
+        e.printStackTrace();
+        return "Error al registrar el usuario: " + e.getMessage();
+            }
     }
 
 }
