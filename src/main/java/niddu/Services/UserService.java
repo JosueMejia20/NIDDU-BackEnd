@@ -7,18 +7,13 @@ import niddu.Models.Dtos.UserDto;
 import niddu.Repositories.UserRepository;
 
 @Service
-public class UserService{
-    
+public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
-    /**
-     * Convierte un Usuario a UserDto.
-     * @param user el usuario a convertir.
-     * @return el UserDto resultante.
-     * @author Mauricio Velásquez
-     */
     public UserDto doUserDto(Usuario user) {
+<<<<<<< HEAD
         UserDto userDto = new UserDto();
 
         userDto.setId(user.getIdUsuario());
@@ -28,40 +23,27 @@ public class UserService{
         userDto.setFechaCreacion(user.getFechaRegistro().toString());
 
         return userDto;
+=======
+        UserDto dto = new UserDto();
+        dto.setId(user.getId());
+        dto.setCorreo(user.getCorreo());
+        dto.setIdTipoUsuario(user.getIdTipoUsuario());
+        dto.setIdEstadoUsuario(user.getIdEstadoUsuario());
+        return dto;
+>>>>>>> 3a6e192 (EndPoint de Usuarios actualizado)
     }
 
-
-    /**
-     * Verifica si el usuario con el id dado existe.
-     * @param id id del usuario.
-     * @return true si lo encuentra, de lo contrario false.
-     * @author Mauricio Velásquez
-     */
     public boolean existsById(int id) {
         return userRepository.existsById(id);
     }
 
-
-    /**
-     * Obtiene un usuario por su ID.
-     * @param id id del usuario.
-     * @return al usuario si lo encuentra, de lo contrario retorna null.
-     * @author Mauricio Velásquez
-     */
     public UserDto getUserById(int id) {
-
-        UserDto userDto = new UserDto();
-
-        if(existsById(id)) {
-            Usuario user = userRepository.findById(id).orElse(null);
-            userDto = doUserDto(user);
-
-            return userDto;
-        }
-
-        return null;
+        return userRepository.findById(id)
+                .map(this::doUserDto)
+                .orElse(null);
     }
 
+<<<<<<< HEAD
     /**
      * Valida las credenciales de un usuario.
      * @param userName Nombre de usuario.
@@ -114,6 +96,20 @@ public class UserService{
     userRepository.save(nvoUsuario);
 
     return true;
+=======
+    public boolean validatedCredentials(String correo, String password) {
+        Usuario user = userRepository.findByCorreoAndContrasena(correo, password).orElse(null);
+        return user != null;
     }
 
+    public UserDto getUserByCorreoAndPassword(String correo, String password) {
+        return userRepository.findByCorreoAndContrasena(correo, password)
+                .map(this::doUserDto)
+                .orElse(null);
+    }
+
+    public void guardarUsuario(Usuario usuario) {
+        userRepository.save(usuario);
+>>>>>>> 3a6e192 (EndPoint de Usuarios actualizado)
+    }
 }
