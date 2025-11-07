@@ -1,11 +1,6 @@
 package niddu.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -18,6 +13,6 @@ public class Departamento {
     @Column(name = "id_departamento")
     private int idDepartamento;
 
-    @Column(name = "nombre_departamento")
+    @Column(name = "nombre_departamento", nullable = false)
     private String nombreDepartamento;
 }

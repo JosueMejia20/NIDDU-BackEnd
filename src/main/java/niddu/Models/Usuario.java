@@ -1,7 +1,7 @@
 package niddu.Models;
 
 import java.time.LocalDateTime;
-
+import java.util.List;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -36,4 +36,7 @@ public class Usuario {
     @OneToOne
     @JoinColumn(name = "id_persona", referencedColumnName = "id_persona")
     private Persona persona;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Direccion> direcciones;
 }

@@ -3,7 +3,10 @@ package niddu.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import niddu.Models.Usuario;
+import niddu.Models.Direccion;
+import niddu.Models.Persona;
 import niddu.Model.Dtos.UserDto;
+import niddu.Repositories.PersonaRepository;
 import niddu.Repositories.UserRepository;
 
 @Service
@@ -42,7 +45,21 @@ public class UserService {
                 .orElse(null);
     }
 
+   @Autowired
+    private PersonaRepository personaRepository;
     public void guardarUsuario(Usuario usuario) {
+        if (usuario.getPersona() != null) {
+            Persona personaGuardada = personaRepository.save(usuario.getPersona());
+            usuario.setPersona(personaGuardada);
+        }
+
+        if (usuario.getDirecciones() != null) {
+            for (Direccion direccion : usuario.getDirecciones()) {
+                direccion.setUsuario(usuario);
+            }
+        }
+
         userRepository.save(usuario);
     }
+
 }
