@@ -24,6 +24,9 @@ public class Persona {
     @Column(name = "telefono", length = 20)
     private String telefono;
 
+    @Column(name = "foto_identidad", length = 255)
+    private String fotoIdentidad;
+
     @OneToOne(mappedBy = "persona")
     @JsonIgnore
     private Usuario usuario;
