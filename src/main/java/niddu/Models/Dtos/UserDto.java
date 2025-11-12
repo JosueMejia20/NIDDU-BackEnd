@@ -1,4 +1,4 @@
-package niddu.Model.Dtos;
+package niddu.Models.Dtos;
 
 import lombok.Data;
 import niddu.Models.Direccion;
