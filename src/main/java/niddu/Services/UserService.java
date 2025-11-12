@@ -19,6 +19,11 @@ public class UserService {
         UserDto dto = new UserDto();
         dto.setId(user.getId());
         dto.setCorreo(user.getCorreo());
+        dto.setNombre(user.getPersona().getNombres());
+        dto.setApellido(user.getPersona().getApellidos());
+        dto.setTelefono(user.getPersona().getTelefono());
+        dto.setDireccion(user.getDirecciones().isEmpty() ? null : user.getDirecciones().get(0));
+        dto.setFechaCreacion(user.getFechaRegistro().toString());
         dto.setIdTipoUsuario(user.getIdTipoUsuario());
         dto.setIdEstadoUsuario(user.getIdEstadoUsuario());
         return dto;
