@@ -1,9 +1,6 @@
 package niddu.Models.Dtos;
 import java.util.List;
 import lombok.Data;
-import niddu.Models.Dtos.PersonaDto;
-import niddu.Models.Direccion;
-import niddu.Models.Dtos.DireccionDto;
 @Data
 public class CuidadorDto {
 

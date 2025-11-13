@@ -52,6 +52,7 @@ public class UserService {
 
    @Autowired
     private PersonaRepository personaRepository;
+
     public void guardarUsuario(Usuario usuario) {
         if (usuario.getPersona() != null) {
             Persona personaGuardada = personaRepository.save(usuario.getPersona());
