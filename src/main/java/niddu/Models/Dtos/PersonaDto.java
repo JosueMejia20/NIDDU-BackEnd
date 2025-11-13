@@ -8,7 +8,7 @@ public class PersonaDto {
     private int id;
     private String nombres;
     private String apellidos;
-    private String email;
     private String telefono;
     private int idUsuario;
+    private PersonaDto persona;
 }
