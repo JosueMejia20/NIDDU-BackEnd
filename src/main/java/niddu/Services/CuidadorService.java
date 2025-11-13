@@ -1,11 +1,18 @@
 package niddu.Services;
 
+import java.util.stream.Collectors;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import niddu.Models.Cuidador;
+import niddu.Models.Departamento;
 import niddu.Models.Direccion;
 import niddu.Models.Persona;
 import niddu.Models.Dtos.CuidadorDto;
+import niddu.Models.Dtos.DepartamentoDto;
+import niddu.Models.Dtos.DireccionDto;
 import niddu.Models.Dtos.PersonaDto;
 import niddu.Repositories.CuidadorRepository;
 import niddu.Repositories.DireccionRepository;
@@ -68,17 +75,41 @@ private CuidadorDto convertirACuidadorDto(Cuidador cuidador) {
     dto.setExperiencia(cuidador.getExperiencia());
     dto.setIdEstadoCuidador(cuidador.getIdEstadoCuidador());
 
+    // Persona
     Persona persona = cuidador.getPersona();
     if (persona != null) {
         PersonaDto personaDTO = new PersonaDto();
+        personaDTO.setId(persona.getIdPersona());
         personaDTO.setNombres(persona.getNombres());
         personaDTO.setApellidos(persona.getApellidos());
         personaDTO.setTelefono(persona.getTelefono());
         dto.setPersona(personaDTO);
     }
 
+    // Direcciones
+    if (cuidador.getDirecciones() != null) {
+        List<DireccionDto> direccionesDTO = cuidador.getDirecciones().stream().map(d -> {
+            DireccionDto dirDTO = new DireccionDto();
+            dirDTO.setCiudad(d.getCiudad());
+            dirDTO.setColonia(d.getColonia());
+
+            Departamento departamento = d.getDepartamento();
+            if (departamento != null) {
+                DepartamentoDto deptoDTO = new DepartamentoDto();
+                deptoDTO.setIdDepartamento(departamento.getIdDepartamento());
+                deptoDTO.setNombre(departamento.getNombreDepartamento()); // 👈 Aquí el cambio
+                dirDTO.setDepartamento(deptoDTO);
+            }
+
+            return dirDTO;
+        }).collect(Collectors.toList());
+
+        dto.setDirecciones(direccionesDTO);
+    }
+
     return dto;
 }
+
 
 public CuidadorDto obtenerCuidadorDtoPorId(int id) {
     Cuidador cuidador = cuidadorRepository.findById(id)
