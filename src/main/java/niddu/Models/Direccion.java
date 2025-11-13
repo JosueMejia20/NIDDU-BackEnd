@@ -27,6 +27,10 @@ public class Direccion {
     private Usuario usuario;
 
     @ManyToOne
+    @JoinColumn(name = "id_cuidador", referencedColumnName = "id_cuidador")
+    private Cuidador cuidador;
+
+    @ManyToOne
     @JoinColumn(name = "id_departamento", referencedColumnName = "id_departamento")
     private Departamento departamento;
 
