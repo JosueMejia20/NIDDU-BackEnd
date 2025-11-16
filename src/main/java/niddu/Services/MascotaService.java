@@ -16,4 +16,8 @@ public class MascotaService {
         return mascotaRepository.findAll();
     }
 
+    public List<Mascota> obtenerMascotasPorUsuario(int idUsuario) {
+        return mascotaRepository.findByUsuarioId(idUsuario);
+    }
+
 }
