@@ -38,4 +38,9 @@ public class CuidadorController {
         }
     }
 
+    @GetMapping("/ping")
+    public ResponseEntity<String> ping() {
+        return ResponseEntity.ok("pong");
+    }
+
 }
