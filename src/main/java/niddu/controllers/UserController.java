@@ -23,7 +23,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://proud-beach-0a296230f.3.azurestaticapps.net:3000")
     @GetMapping("existeUsuario/{id}")
     public String existeUsuario(@PathVariable(name = "id") int id) {
         if (userService.existsById(id)) {
@@ -33,13 +33,13 @@ public class UserController {
         return "No existe un usuario con ese ID.";
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://proud-beach-0a296230f.3.azurestaticapps.net:3000")
     @GetMapping("obtenerUsuario/{id}")
     public UserDto obtenerUsuarioPorId(@PathVariable(name = "id") int id) {
         return userService.getUserById(id);
     }
 
- @CrossOrigin(origins="http://localhost:3000")
+ @CrossOrigin(origins="https://proud-beach-0a296230f.3.azurestaticapps.net:3000")
  @GetMapping("validarCredenciales/{correo}/{password}")
     public UserDto validarCredenciales(@PathVariable(name = "correo") String correo, 
                                    @PathVariable(name = "password") String password) {
@@ -47,7 +47,7 @@ public class UserController {
     return userService.getUserByCorreoAndPassword(correo, password);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://proud-beach-0a296230f.3.azurestaticapps.net:3000")
     @PostMapping("/registrar")
     public String registrarUsuario(@RequestBody Usuario usuario) {
         try {

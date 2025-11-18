@@ -11,7 +11,7 @@ import niddu.Services.CuidadorService;
 
 @RestController
 @RequestMapping("/cuidadores")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://proud-beach-0a296230f.3.azurestaticapps.net:3000")
 public class CuidadorController {
 
     @Autowired
