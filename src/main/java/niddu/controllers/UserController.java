@@ -35,7 +35,7 @@ public class UserController {
 
     @CrossOrigin(origins = "https://proud-beach-0a296230f.3.azurestaticapps.net:3000")
     @GetMapping("obtenerUsuario/{id}")
-    public UserDto obtenerUsuarioPorId(@PathVariable(name = "id") int id) {
+    public Usuario obtenerUsuarioPorId(@PathVariable(name = "id") int id) {
         return userService.getUserById(id);
     }
 

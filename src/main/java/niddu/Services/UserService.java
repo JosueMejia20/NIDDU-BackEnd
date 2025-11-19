@@ -33,10 +33,8 @@ public class UserService {
         return userRepository.existsById(id);
     }
 
-    public UserDto getUserById(int id) {
-        return userRepository.findById(id)
-                .map(this::doUserDto)
-                .orElse(null);
+    public Usuario getUserById(int id) {
+        return userRepository.findById(id).get();
     }
 
     public boolean validatedCredentials(String correo, String password) {
