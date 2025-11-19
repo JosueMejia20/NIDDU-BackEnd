@@ -12,8 +12,11 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/")
-                        .allowedOrigins("https://proud-beach-0a296230f.3.azurestaticapps.net/") // tu frontend React
+                registry.addMapping("/**") // 🚀 permite TODOS los endpoints
+                        .allowedOrigins(
+                                "https://proud-beach-0a296230f.3.azurestaticapps.net", // 🚀 sin barra final
+                                "http://localhost:3000" // para desarrollo
+                        )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
