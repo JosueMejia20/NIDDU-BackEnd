@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 @Data
 public class ServicioCompletoDto {
+    private int idServicio;
     private int idUsuario;
     private int idCuidador;
     private int idMascota;

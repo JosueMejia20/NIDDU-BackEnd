@@ -32,6 +32,7 @@ public class ServicioService {
         
         ServicioCompletoDto dto = new ServicioCompletoDto();
 
+        dto.setIdServicio(servicio.getIdServicios());
         dto.setIdUsuario(servicio.getUsuario().getId());
         dto.setIdCuidador(servicio.getCuidador().getIdCuidador());
         dto.setIdMascota(servicio.getMascota().getIdMascota());
