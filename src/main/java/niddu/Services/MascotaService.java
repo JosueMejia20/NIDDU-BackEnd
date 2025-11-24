@@ -2,7 +2,6 @@ package niddu.Services;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties.UiService;
 import org.springframework.stereotype.Service;
 import niddu.Models.Mascota;
 import niddu.Models.Usuario;

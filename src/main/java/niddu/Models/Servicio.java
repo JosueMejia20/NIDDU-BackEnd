@@ -24,4 +24,9 @@ public class Servicio {
     @ManyToOne
     @JoinColumn(name = "id_mascota")
     private Mascota mascota;
+
+
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_servicio")
+    private TipoServicio idTipoServicio;
 }

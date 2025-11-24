@@ -1,5 +1,6 @@
 package niddu.Services;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import niddu.Models.*;
@@ -24,6 +25,22 @@ public class ServicioService {
     @Autowired
     private MascotaRepository mascotaRepository;
 
+    @Autowired
+    private TipoServicioRepository tipoServicioRepository;
+
+    public ServicioCompletoDto hecerDtoServicioCompleto(Servicio servicio) {
+        
+        ServicioCompletoDto dto = new ServicioCompletoDto();
+
+        dto.setIdUsuario(servicio.getUsuario().getId());
+        dto.setIdCuidador(servicio.getCuidador().getIdCuidador());
+        dto.setIdMascota(servicio.getMascota().getIdMascota());
+        dto.setTipoServicio(servicio.getIdTipoServicio());
+
+        return dto;
+
+    }
+
     public void registrarServicioCompleto(ServicioCompletoDto dto) {
 
         Servicio servicio = new Servicio();
@@ -39,5 +56,24 @@ public class ServicioService {
         detalle.setTotal(dto.getTotal());
         detalle.setEstado(dto.getEstado());
         detalleServicioRepository.save(detalle);
+    }
+
+    public List<ServicioCompletoDto> obtenerServiciosPorIdTipoServicio(int idTipoServicio) {
+
+        TipoServicio tipoServicio = tipoServicioRepository.findByIdTipoServicio(idTipoServicio);
+
+        List<Servicio> listaServicios = servicioRepository.findServicioByIdTipoServicio(tipoServicio);
+
+        List<ServicioCompletoDto> listaDto = new java.util.ArrayList<>();
+
+        ServicioCompletoDto dto = new ServicioCompletoDto();
+
+        for (Servicio servicio : listaServicios) {
+            dto = hecerDtoServicioCompleto(servicio);
+            listaDto.add(dto);
+        }
+
+        return listaDto;
+
     }
 }
