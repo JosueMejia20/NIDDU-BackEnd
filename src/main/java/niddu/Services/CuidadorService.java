@@ -1,9 +1,7 @@
 package niddu.Services;
 
 import java.util.stream.Collectors;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import niddu.Models.Cuidador;
@@ -18,7 +16,6 @@ import niddu.Repositories.CuidadorRepository;
 import niddu.Repositories.DireccionRepository;
 import niddu.Repositories.PersonaRepository;
 import org.springframework.transaction.annotation.Transactional;
-
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -116,6 +113,19 @@ public CuidadorDto obtenerCuidadorDtoPorId(int id) {
         .orElseThrow(() -> new EntityNotFoundException("Cuidador no encontrado con ID: " + id));
     return convertirACuidadorDto(cuidador);
 }
+
+    public CuidadorDto validarCredenciales(String correo, String contrasena) {
+
+        Cuidador cuidador = cuidadorRepository.findByCorreoAndContrasena(correo, contrasena);
+
+        if(cuidador == null) {
+
+            return null;
+
+        }
+
+        return convertirACuidadorDto(cuidador);
+    }
 
 
 }

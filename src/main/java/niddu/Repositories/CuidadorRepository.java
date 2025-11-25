@@ -6,4 +6,5 @@ import niddu.Models.Cuidador;
 
 @Repository
 public interface CuidadorRepository extends JpaRepository<Cuidador, Integer> {
+    public Cuidador findByCorreoAndContrasena(String correo, String contrasena);
 }

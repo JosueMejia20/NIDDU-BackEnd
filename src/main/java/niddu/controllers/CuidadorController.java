@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.persistence.EntityNotFoundException;
 import niddu.Models.Cuidador;
 import niddu.Models.Dtos.CuidadorDto;
+import niddu.Models.Dtos.UserDto;
 import niddu.Services.CuidadorService;
 
 @RestController
@@ -27,6 +28,15 @@ public class CuidadorController {
             return "Error al registrar el cuidador: " + e.getMessage();
         }
     }
+
+    @CrossOrigin(origins="https://proud-beach-0a296230f.3.azurestaticapps.net:3000")
+    @GetMapping("validarCredenciales/{correo}/{password}")
+    public CuidadorDto validarCredenciales(@PathVariable(name = "correo") String correo, 
+                                   @PathVariable(name = "password") String password) {
+
+    return cuidadorService.validarCredenciales(correo, password);
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<CuidadorDto> obtenerCuidadorPorId(@PathVariable int id) {
