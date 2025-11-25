@@ -29,4 +29,9 @@ public class Servicio {
     @ManyToOne
     @JoinColumn(name = "id_tipo_servicio")
     private TipoServicio idTipoServicio;
+
+    @ManyToOne
+    @JoinColumn(name = "id_tiposervicio")
+    private TipoServicio tipoServicio;
+
 }

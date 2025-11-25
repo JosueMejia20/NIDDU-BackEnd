@@ -48,6 +48,7 @@ public class ServicioService {
         servicio.setUsuario(usuarioRepository.findById(dto.getIdUsuario()).orElseThrow());
         servicio.setCuidador(cuidadorRepository.findById(dto.getIdCuidador()).orElseThrow());
         servicio.setMascota(mascotaRepository.findById(dto.getIdMascota()).orElseThrow());
+        servicio.setTipoServicio(tipoServicioRepository.findById(dto.getIdTipoServicio()).orElseThrow());
         Servicio servicioGuardado = servicioRepository.save(servicio);
         DetalleServicio detalle = new DetalleServicio();
         detalle.setServicio(servicioGuardado);

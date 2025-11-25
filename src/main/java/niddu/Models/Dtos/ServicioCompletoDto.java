@@ -18,4 +18,7 @@ public class ServicioCompletoDto {
     private BigDecimal impuesto;
     private BigDecimal total;
     private String estado;
+
+    private int idTipoServicio;
+
 }
