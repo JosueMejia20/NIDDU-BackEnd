@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class CuidadorDto {
 
+    private int idCuidador;
     private String correo;
     private String fotoPerfil;
     private String fotoIdentidad;

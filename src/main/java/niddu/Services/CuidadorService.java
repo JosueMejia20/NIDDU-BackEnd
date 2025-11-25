@@ -65,6 +65,7 @@ public CuidadorDto registrarYRetornarDTO(Cuidador cuidador) {
 
 private CuidadorDto convertirACuidadorDto(Cuidador cuidador) {
     CuidadorDto dto = new CuidadorDto();
+    dto.setIdCuidador(cuidador.getIdCuidador());
     dto.setCorreo(cuidador.getCorreo());
     dto.setFotoPerfil(cuidador.getFotoPerfil());
     dto.setFotoIdentidad(cuidador.getFotoIdentidad());
