@@ -78,4 +78,8 @@ public class ServicioService {
         return listaDto;
 
     }
+
+    public List<TipoServicio> obtenerTodosTipoServicios() {
+        return tipoServicioRepository.findAll();
+    }
 }
