@@ -1,14 +1,18 @@
 package niddu.controllers;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import jakarta.persistence.EntityNotFoundException;
 import niddu.Models.Cuidador;
+import niddu.Models.CuidadorTipoServicio;
 import niddu.Models.Dtos.CuidadorDto;
-import niddu.Models.Dtos.UserDto;
+import niddu.Models.Dtos.CuidadorTipoServicioDto;
 import niddu.Services.CuidadorService;
+import org.springframework.web.bind.annotation.GetMapping;
+
+
 
 @RestController
 @RequestMapping("/cuidadores")
@@ -47,6 +51,18 @@ public class CuidadorController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("obtenerServiciosPorCuidadores")
+    public List<CuidadorTipoServicioDto> obtenerServiciosCuidadores() {
+        return cuidadorService.obtenerServiciosCuidadores();
+    }
+
+    @GetMapping("obtenerTodo")
+    public List<CuidadorTipoServicio> obtenerTodo() {
+        return cuidadorService.obtenerTodosCuidadorTipoServicios();
+    }
+    
+    
 
     @GetMapping("/ping")
     public ResponseEntity<String> ping() {

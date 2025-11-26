@@ -12,6 +12,12 @@ public class TipoServicio {
     @Column(name = "id_tiposervicio")
     private int idTipoServicio;
 
+    @Column(name = "nombre")
+    private String nombreServicio;
+
     @Column(name = "descripcion")
     private String descripcion;
+
+    @Column(name = "preciohora")
+    private double precioHora;
 }

@@ -15,7 +15,7 @@ public class TipoServicioController {
 
     @PostMapping("/registrar")
     public ResponseEntity<String> registrarTiposDeServicio(@RequestBody CuidadorTipoServicioDto dto) {
-    tipoServicioService.registrarTiposDeServicio(dto.getIdCuidador(), dto.getIdTipoServicio());
+    tipoServicioService.registrarTiposDeServicio(dto.getIdCuidador(), dto.getIdTipoServicios());
     return ResponseEntity.ok("Tipos de servicio registrados para cuidador.");
     }
  

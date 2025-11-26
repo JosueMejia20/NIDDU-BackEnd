@@ -3,6 +3,8 @@ package niddu.Models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -45,6 +47,7 @@ public class Cuidador {
     @Column(name = "fecha_registro", insertable = false, updatable = false)
     private LocalDateTime fechaRegistro;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cuidador", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Direccion> direcciones;
 

@@ -1,20 +1,28 @@
 package niddu.Services;
 
 import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import niddu.Models.Cuidador;
+import niddu.Models.CuidadorTipoServicio;
 import niddu.Models.Departamento;
 import niddu.Models.Direccion;
 import niddu.Models.Persona;
 import niddu.Models.Dtos.CuidadorDto;
+import niddu.Models.Dtos.CuidadorTipoServicioDto;
 import niddu.Models.Dtos.DepartamentoDto;
 import niddu.Models.Dtos.DireccionDto;
 import niddu.Models.Dtos.PersonaDto;
 import niddu.Repositories.CuidadorRepository;
+import niddu.Repositories.CuidadorTipoServicioRepository;
 import niddu.Repositories.DireccionRepository;
 import niddu.Repositories.PersonaRepository;
+
 import org.springframework.transaction.annotation.Transactional;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -28,7 +36,10 @@ public class CuidadorService {
     private PersonaRepository personaRepository;
     
     @Autowired
-private DireccionRepository direccionRepository;
+    private DireccionRepository direccionRepository;
+
+    @Autowired
+    private CuidadorTipoServicioRepository cuidadorTipoServicioRepository;
 
         @Transactional
     public Cuidador registrarCuidador(Cuidador cuidador) {
@@ -95,7 +106,7 @@ private CuidadorDto convertirACuidadorDto(Cuidador cuidador) {
             if (departamento != null) {
                 DepartamentoDto deptoDTO = new DepartamentoDto();
                 deptoDTO.setIdDepartamento(departamento.getIdDepartamento());
-                deptoDTO.setNombre(departamento.getNombreDepartamento()); // 👈 Aquí el cambio
+                deptoDTO.setNombre(departamento.getNombreDepartamento());
                 dirDTO.setDepartamento(deptoDTO);
             }
 
@@ -127,6 +138,37 @@ public CuidadorDto obtenerCuidadorDtoPorId(int id) {
 
         return convertirACuidadorDto(cuidador);
     }
+    
+    public List<CuidadorTipoServicio> obtenerTodosCuidadorTipoServicios() {
+        return cuidadorTipoServicioRepository.findAll();
+    }
+
+    public List<CuidadorTipoServicioDto> obtenerServiciosCuidadores() {
+        List<CuidadorTipoServicio> cuidadoresServicios = cuidadorTipoServicioRepository.findAll();
+        List<CuidadorTipoServicioDto> resultado = new ArrayList<>();
+
+        // Usar un mapa para agrupar por cuidador
+        Map<Integer, CuidadorTipoServicioDto> mapaCuidadores = new HashMap<>();
+
+        for (CuidadorTipoServicio cts : cuidadoresServicios) {
+            int idCuidador = cts.getIdCuidador(); // usando EmbeddedId
+
+            CuidadorTipoServicioDto dto = mapaCuidadores.get(idCuidador);
+            if (dto == null) {
+                dto = new CuidadorTipoServicioDto();
+                dto.setCuidador(cuidadorRepository.findById(idCuidador).orElse(null));
+                dto.setTipoServicios(new ArrayList<>()); // inicializamos la lista
+                mapaCuidadores.put(idCuidador, dto);
+            }
+
+            dto.getTipoServicios().add(cts.getTipoServicio());
+        }
+
+        resultado.addAll(mapaCuidadores.values());
+        return resultado;
+    }
+
+
 
 
 }

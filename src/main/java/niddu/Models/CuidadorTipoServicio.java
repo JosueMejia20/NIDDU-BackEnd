@@ -1,5 +1,7 @@
 package niddu.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,9 +20,11 @@ public class CuidadorTipoServicio {
 
     @ManyToOne
     @JoinColumn(name = "id_cuidador", insertable = false, updatable = false)
+    @JsonIgnore
     private Cuidador cuidador;
 
     @ManyToOne
     @JoinColumn(name = "id_tiposervicio", insertable = false, updatable = false)
+    @JsonIgnore
     private TipoServicio tipoServicio;
 }
