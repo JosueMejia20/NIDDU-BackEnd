@@ -13,7 +13,6 @@ import niddu.Models.CuidadorTipoServicio;
 import niddu.Models.Departamento;
 import niddu.Models.Direccion;
 import niddu.Models.Persona;
-import niddu.Models.TipoServicio;
 import niddu.Models.Dtos.CuidadorDto;
 import niddu.Models.Dtos.CuidadorTipoServicioDto;
 import niddu.Models.Dtos.DepartamentoDto;
