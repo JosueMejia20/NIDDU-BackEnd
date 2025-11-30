@@ -13,6 +13,7 @@ import niddu.Models.CuidadorTipoServicio;
 import niddu.Models.Departamento;
 import niddu.Models.Direccion;
 import niddu.Models.Persona;
+import niddu.Models.TipoServicio;
 import niddu.Models.Dtos.CuidadorDto;
 import niddu.Models.Dtos.CuidadorTipoServicioDto;
 import niddu.Models.Dtos.DepartamentoDto;
@@ -22,7 +23,6 @@ import niddu.Repositories.CuidadorRepository;
 import niddu.Repositories.CuidadorTipoServicioRepository;
 import niddu.Repositories.DireccionRepository;
 import niddu.Repositories.PersonaRepository;
-
 import org.springframework.transaction.annotation.Transactional;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -169,6 +169,19 @@ public CuidadorDto obtenerCuidadorDtoPorId(int id) {
     }
 
 
+    public CuidadorTipoServicioDto obtenerListaServiciosPorCuidadorId(int idCuidador) {
 
+        List<CuidadorTipoServicioDto> cuidadorTipoServicioDtos = obtenerServiciosCuidadores();
+
+        for (CuidadorTipoServicioDto cuidadorTipoServicioDto : cuidadorTipoServicioDtos) {
+            
+            if(cuidadorTipoServicioDto.getCuidador().getIdCuidador() == idCuidador) {
+                return cuidadorTipoServicioDto;
+            }
+
+        }
+
+        return null;
+    }
 
 }

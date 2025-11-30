@@ -8,6 +8,4 @@ import niddu.Models.CuidadorTipoServicioId;
 @Repository
 public interface CuidadorTipoServicioRepository extends JpaRepository<CuidadorTipoServicio, CuidadorTipoServicioId> {
 
-    
-
 }

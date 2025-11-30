@@ -10,9 +10,6 @@ import niddu.Models.CuidadorTipoServicio;
 import niddu.Models.Dtos.CuidadorDto;
 import niddu.Models.Dtos.CuidadorTipoServicioDto;
 import niddu.Services.CuidadorService;
-import org.springframework.web.bind.annotation.GetMapping;
-
-
 
 @RestController
 @RequestMapping("/cuidadores")
@@ -62,6 +59,11 @@ public class CuidadorController {
         return cuidadorService.obtenerTodosCuidadorTipoServicios();
     }
     
+
+    @GetMapping(path = "obtenerListaServiciosPorCuidadorId/{idCuidador}")
+    public CuidadorTipoServicioDto obtenerListaServiciosPorCuidadorId(@PathVariable(name = "idCuidador") int idCuidador){
+        return cuidadorService.obtenerListaServiciosPorCuidadorId(idCuidador);
+    }
     
 
     @GetMapping("/ping")

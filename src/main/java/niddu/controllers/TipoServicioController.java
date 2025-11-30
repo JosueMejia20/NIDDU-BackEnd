@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import niddu.Models.TipoServicio;
-import java.util.List;
 import niddu.Services.ServicioService;
 import niddu.Services.TipoServicioService;
 
