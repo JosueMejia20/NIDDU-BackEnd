@@ -34,4 +34,8 @@ public class Servicio {
     @JoinColumn(name = "id_tiposervicio")
     private TipoServicio tipoServicio;
 
+    @OneToOne(mappedBy = "servicio", optional = true)
+    private DetalleServicio detalleServicio;
+
+
 }

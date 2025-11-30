@@ -1,5 +1,6 @@
 package niddu.controllers;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +11,7 @@ import niddu.Services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import niddu.Models.Usuario;
+import niddu.Models.Dtos.ServicioCompletoDto;
 import niddu.Models.Dtos.UserDto;
 
 
@@ -56,6 +58,11 @@ public class UserController {
         e.printStackTrace();
         return "Error al registrar el usuario: " + e.getMessage();
             }
+    }
+
+    @GetMapping(path = "/obtenerHistorialReservas/{idUsuario}")
+    public List<ServicioCompletoDto> obtenerHistorialDeReservas(@PathVariable(name = "idUsuario") int idUsuario) {
+        return userService.obtenerDetalleDeTodosLosServicios(idUsuario);
     }
 
 }

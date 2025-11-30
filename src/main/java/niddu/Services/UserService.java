@@ -1,12 +1,19 @@
 package niddu.Services;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import niddu.Models.Usuario;
+import niddu.Models.Dtos.ServicioCompletoDto;
 import niddu.Models.Dtos.UserDto;
+import niddu.Models.DetalleServicio;
 import niddu.Models.Direccion;
 import niddu.Models.Persona;
+import niddu.Models.Servicio;
+import niddu.Repositories.DetalleServicioRepository;
 import niddu.Repositories.PersonaRepository;
+import niddu.Repositories.ServicioRepository;
 import niddu.Repositories.UserRepository;
 
 @Service
@@ -14,6 +21,12 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private DetalleServicioRepository detalleServicioRepository;
+
+    @Autowired
+    private ServicioRepository servicioRepository;
 
     public UserDto doUserDto(Usuario user) {
         UserDto dto = new UserDto();
@@ -64,6 +77,35 @@ public class UserService {
         }
 
         userRepository.save(usuario);
+    }
+
+
+    public List<ServicioCompletoDto> obtenerDetalleDeTodosLosServicios(int idUsuario) {
+
+        List<Servicio> servicios = servicioRepository.findAllByUsuario(userRepository.findById(idUsuario).get());
+
+        List<ServicioCompletoDto> dtoList = new ArrayList<>();
+        
+        for (Servicio servicio : servicios) {
+            ServicioCompletoDto servicioCompletoDto = new ServicioCompletoDto();
+            servicioCompletoDto.setIdServicio(servicio.getIdServicios());
+            servicioCompletoDto.setIdUsuario(idUsuario);
+            servicioCompletoDto.setIdCuidador(servicio.getCuidador().getIdCuidador());
+            servicioCompletoDto.setIdMascota(servicio.getMascota().getIdMascota());
+            servicioCompletoDto.setIdTipoServicio(servicio.getTipoServicio().getIdTipoServicio());
+
+            DetalleServicio detalleServicio = detalleServicioRepository.findByServicio(servicio);
+
+            servicioCompletoDto.setFecha(detalleServicio.getFecha());
+            servicioCompletoDto.setSubtotal(detalleServicio.getSubtotal());
+            servicioCompletoDto.setImpuesto(detalleServicio.getImpuesto());
+            servicioCompletoDto.setTotal(detalleServicio.getTotal());
+            servicioCompletoDto.setEstado(detalleServicio.getEstado());
+
+            dtoList.add(servicioCompletoDto);
+        }
+
+        return dtoList;
     }
 
 }

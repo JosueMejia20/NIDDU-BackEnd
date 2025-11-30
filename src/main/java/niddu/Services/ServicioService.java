@@ -36,7 +36,6 @@ public class ServicioService {
         dto.setIdUsuario(servicio.getUsuario().getId());
         dto.setIdCuidador(servicio.getCuidador().getIdCuidador());
         dto.setIdMascota(servicio.getMascota().getIdMascota());
-        dto.setTipoServicio(servicio.getIdTipoServicio());
 
         return dto;
 
