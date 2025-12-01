@@ -93,7 +93,7 @@ public class UserService {
             servicioCompletoDto.setNombreMascota(servicio.getMascota().getNombre());;
             servicioCompletoDto.setNombreServicio(servicio.getTipoServicio().getNombreServicio());
 
-            DetalleServicio detalleServicio = detalleServicioRepository.findByServicioUno(servicio);
+            DetalleServicio detalleServicio = detalleServicioRepository.findByServicio(servicio);
 
             servicioCompletoDto.setFecha(detalleServicio.getFecha());
             servicioCompletoDto.setSubtotal(detalleServicio.getSubtotal());
