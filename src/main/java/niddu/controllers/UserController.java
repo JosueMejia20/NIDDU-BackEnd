@@ -11,7 +11,7 @@ import niddu.Services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import niddu.Models.Usuario;
-import niddu.Models.Dtos.ServicioCompletoDto;
+import niddu.Models.Dtos.ServicioCompletoDto2;
 import niddu.Models.Dtos.UserDto;
 
 
@@ -61,7 +61,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/obtenerHistorialReservas/{idUsuario}")
-    public List<ServicioCompletoDto> obtenerHistorialDeReservas(@PathVariable(name = "idUsuario") int idUsuario) {
+    public List<ServicioCompletoDto2> obtenerHistorialDeReservas(@PathVariable(name = "idUsuario") int idUsuario) {
         return userService.obtenerDetalleDeTodosLosServicios(idUsuario);
     }
 

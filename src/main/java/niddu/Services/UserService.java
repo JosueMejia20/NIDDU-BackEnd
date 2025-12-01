@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import niddu.Models.Usuario;
-import niddu.Models.Dtos.ServicioCompletoDto;
+import niddu.Models.Dtos.ServicioCompletoDto2;
 import niddu.Models.Dtos.UserDto;
 import niddu.Models.DetalleServicio;
 import niddu.Models.Direccion;
@@ -80,19 +80,18 @@ public class UserService {
     }
 
 
-    public List<ServicioCompletoDto> obtenerDetalleDeTodosLosServicios(int idUsuario) {
+    public List<ServicioCompletoDto2> obtenerDetalleDeTodosLosServicios(int idUsuario) {
 
         List<Servicio> servicios = servicioRepository.findAllByUsuario(userRepository.findById(idUsuario).get());
 
-        List<ServicioCompletoDto> dtoList = new ArrayList<>();
+        List<ServicioCompletoDto2> dtoList = new ArrayList<>();
         
         for (Servicio servicio : servicios) {
-            ServicioCompletoDto servicioCompletoDto = new ServicioCompletoDto();
-            servicioCompletoDto.setIdServicio(servicio.getIdServicios());
-            servicioCompletoDto.setIdUsuario(idUsuario);
-            servicioCompletoDto.setIdCuidador(servicio.getCuidador().getIdCuidador());
-            servicioCompletoDto.setIdMascota(servicio.getMascota().getIdMascota());
-            servicioCompletoDto.setIdTipoServicio(servicio.getTipoServicio().getIdTipoServicio());
+            ServicioCompletoDto2 servicioCompletoDto = new ServicioCompletoDto2();
+            servicioCompletoDto.setNombreCuidador(servicio.getCuidador().getPersona().getNombres());
+            servicioCompletoDto.setApellidoCuidador(servicio.getCuidador().getPersona().getApellidos());
+            servicioCompletoDto.setNombreMascota(servicio.getMascota().getNombre());;
+            servicioCompletoDto.setNombreServicio(servicio.getTipoServicio().getNombreServicio());
 
             DetalleServicio detalleServicio = detalleServicioRepository.findByServicio(servicio);
 
