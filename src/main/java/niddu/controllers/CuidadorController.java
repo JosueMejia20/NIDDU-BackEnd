@@ -64,6 +64,16 @@ public class CuidadorController {
     public CuidadorTipoServicioDto obtenerListaServiciosPorCuidadorId(@PathVariable(name = "idCuidador") int idCuidador){
         return cuidadorService.obtenerListaServiciosPorCuidadorId(idCuidador);
     }
+
+    @PostMapping(path = "asignarTipoServicio/{idCuidador}/{idTipoServicio}")
+    public String asignarTipoServicio(@PathVariable(name = "idCuidador") int idCuidador, @PathVariable(name = "idTipoServicio") int idTipoServicio) {
+
+        if(cuidadorService.asignarTipoServicio(idCuidador, idTipoServicio))
+            return "TipoServicio se asigno correctamente";
+        
+        return "Error al asignar el tipo de servicio";
+
+    }
     
 
     @GetMapping("/ping")

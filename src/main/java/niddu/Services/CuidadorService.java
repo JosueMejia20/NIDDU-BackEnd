@@ -183,4 +183,17 @@ public CuidadorDto obtenerCuidadorDtoPorId(int id) {
         return null;
     }
 
+    public boolean asignarTipoServicio(int idCuidador, int idTipoServicio) {
+
+        CuidadorTipoServicio entity = new CuidadorTipoServicio();
+        entity.setIdCuidador(idCuidador);
+        entity.setIdTipoServicio(idTipoServicio);
+
+        cuidadorTipoServicioRepository.save(entity);
+
+        return true;
+    }
+
+
+
 }
