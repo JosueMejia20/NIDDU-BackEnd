@@ -11,17 +11,23 @@ import org.springframework.stereotype.Service;
 import niddu.Models.Cuidador;
 import niddu.Models.CuidadorTipoServicio;
 import niddu.Models.Departamento;
+import niddu.Models.DetalleServicio;
 import niddu.Models.Direccion;
 import niddu.Models.Persona;
+import niddu.Models.Servicio;
 import niddu.Models.Dtos.CuidadorDto;
 import niddu.Models.Dtos.CuidadorTipoServicioDto;
 import niddu.Models.Dtos.DepartamentoDto;
 import niddu.Models.Dtos.DireccionDto;
 import niddu.Models.Dtos.PersonaDto;
+import niddu.Models.Dtos.ServicioCompletoDto2;
 import niddu.Repositories.CuidadorRepository;
 import niddu.Repositories.CuidadorTipoServicioRepository;
+import niddu.Repositories.DetalleServicioRepository;
 import niddu.Repositories.DireccionRepository;
 import niddu.Repositories.PersonaRepository;
+import niddu.Repositories.ServicioRepository;
+
 import org.springframework.transaction.annotation.Transactional;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -36,6 +42,12 @@ public class CuidadorService {
     
     @Autowired
     private DireccionRepository direccionRepository;
+
+    @Autowired
+    private ServicioRepository servicioRepository;
+
+    @Autowired
+    private DetalleServicioRepository detalleServicioRepository;
 
     @Autowired
     private CuidadorTipoServicioRepository cuidadorTipoServicioRepository;
@@ -192,6 +204,35 @@ public CuidadorDto obtenerCuidadorDtoPorId(int id) {
         cuidadorTipoServicioRepository.save(entity);
 
         return true;
+    }
+
+    public List<ServicioCompletoDto2> obtenerDetalleDeTodosLosServicios(int idCuidador) {
+
+        Cuidador cuidador = cuidadorRepository.findById(idCuidador).get();
+
+        List<Servicio> servicios = servicioRepository.findAllByCuidador(cuidador);
+
+        List<ServicioCompletoDto2> dtoList = new ArrayList<>();
+        
+        for (Servicio servicio : servicios) {
+            ServicioCompletoDto2 servicioCompletoDto = new ServicioCompletoDto2();
+            servicioCompletoDto.setNombreCuidador(servicio.getCuidador().getPersona().getNombres());
+            servicioCompletoDto.setApellidoCuidador(servicio.getCuidador().getPersona().getApellidos());
+            servicioCompletoDto.setNombreMascota(servicio.getMascota().getNombre());;
+            servicioCompletoDto.setNombreServicio(servicio.getTipoServicio().getNombreServicio());
+
+            DetalleServicio detalleServicio = detalleServicioRepository.findByServicio(servicio);
+
+            servicioCompletoDto.setFecha(detalleServicio.getFecha());
+            servicioCompletoDto.setSubtotal(detalleServicio.getSubtotal());
+            servicioCompletoDto.setImpuesto(detalleServicio.getImpuesto());
+            servicioCompletoDto.setTotal(detalleServicio.getTotal());
+            servicioCompletoDto.setEstado(detalleServicio.getEstado());
+
+            dtoList.add(servicioCompletoDto);
+        }
+
+        return dtoList;
     }
 
 

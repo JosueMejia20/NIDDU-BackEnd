@@ -9,6 +9,7 @@ import niddu.Models.Cuidador;
 import niddu.Models.CuidadorTipoServicio;
 import niddu.Models.Dtos.CuidadorDto;
 import niddu.Models.Dtos.CuidadorTipoServicioDto;
+import niddu.Models.Dtos.ServicioCompletoDto2;
 import niddu.Services.CuidadorService;
 
 @RestController
@@ -73,6 +74,11 @@ public class CuidadorController {
         
         return "Error al asignar el tipo de servicio";
 
+    }
+
+    @GetMapping(path = "/obtenerHistorialReservas/{idCuidador}")
+    public List<ServicioCompletoDto2> obtenerHistorialDeReservas(@PathVariable(name = "idCuidador") int idCuidador) {
+        return cuidadorService.obtenerDetalleDeTodosLosServicios(idCuidador);
     }
     
 
