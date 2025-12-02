@@ -219,7 +219,15 @@ public CuidadorDto obtenerCuidadorDtoPorId(int id) {
             servicioCompletoDto.setNombreUsuario(servicio.getUsuario().getPersona().getNombres());
             servicioCompletoDto.setApellidoUsuario(servicio.getUsuario().getPersona().getApellidos());
             servicioCompletoDto.setTelefonoUsuario(servicio.getUsuario().getPersona().getTelefono());
-            servicioCompletoDto.setMascota(servicio.getMascota());
+            servicioCompletoDto.setNombreMascota(servicio.getMascota().getNombre());
+            servicioCompletoDto.setTipoMascota(servicio.getMascota().getTipo());
+            servicioCompletoDto.setRazaMascota(servicio.getMascota().getRaza());
+            servicioCompletoDto.setEdadMascota(servicio.getMascota().getEdad());
+            servicioCompletoDto.setPesoMascota(servicio.getMascota().getPeso());
+            servicioCompletoDto.setAlergias(servicio.getMascota().getAlergias());
+            servicioCompletoDto.setVeterinarioPreferencia(servicio.getMascota().getVeterinarioPreferencia());
+            servicioCompletoDto.setVacunasAlDia(servicio.getMascota().isVacunasAlDia());
+            servicioCompletoDto.setNotas(servicio.getMascota().getNotas());
             servicioCompletoDto.setNombreServicio(servicio.getTipoServicio().getNombreServicio());
 
             DetalleServicio detalleServicio = detalleServicioRepository.findByServicio(servicio);

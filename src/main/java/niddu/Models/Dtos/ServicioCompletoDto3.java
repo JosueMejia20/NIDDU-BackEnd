@@ -1,7 +1,6 @@
 package niddu.Models.Dtos;
 
 import lombok.Data;
-import niddu.Models.Mascota;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -10,7 +9,15 @@ public class ServicioCompletoDto3 {
     private String nombreUsuario;
     private String apellidoUsuario;
     private String telefonoUsuario;
-    private Mascota mascota;
+    private String nombreMascota;
+    private String tipoMascota;
+    private String razaMascota;
+    private BigDecimal edadMascota;
+    private BigDecimal pesoMascota;
+    private String alergias;
+    private String veterinarioPreferencia;
+    private boolean vacunasAlDia;
+    private String notas;
     private String nombreServicio;
 
     private LocalDate fecha;
