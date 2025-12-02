@@ -28,6 +28,9 @@ public class ServicioService {
     @Autowired
     private TipoServicioRepository tipoServicioRepository;
 
+    @Autowired
+    private CuidadorTipoServicioRepository cuidadorTipoServicioRepository;
+
     public ServicioCompletoDto hecerDtoServicioCompleto(Servicio servicio) {
         
         ServicioCompletoDto dto = new ServicioCompletoDto();
@@ -109,6 +112,15 @@ public class ServicioService {
         }
 
         return false;
+    }
+
+    public boolean removerTipoServicoDeCuidador(int idCuidador, int idTipoServicio) {
+        CuidadorTipoServicioId ctId = new CuidadorTipoServicioId();
+        ctId.setIdCuidador(idCuidador);
+        ctId.setIdTipoServicio(idTipoServicio);
+        cuidadorTipoServicioRepository.deleteById(ctId);
+
+        return true;
     }
 
     

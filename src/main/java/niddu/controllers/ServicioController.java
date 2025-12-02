@@ -25,5 +25,14 @@ public class ServicioController {
     public List<ServicioCompletoDto> filtrarServiciosPorTipo(@PathVariable(name = "idTipoServicio") int idTipoServicio) {
         return servicioService.obtenerServiciosPorIdTipoServicio(idTipoServicio);
     }
+
+    @DeleteMapping("/RemoverTipoServicio/{idCuidador}/{idTipoServicio}")
+    public String removerTipoServicioDeCuidador(@PathVariable(name = "idCuidador") int idCuidador, @PathVariable(name = "idTipoServicio") int idTipoServicio) {
+        if (servicioService.removerTipoServicoDeCuidador(idCuidador, idTipoServicio)) {
+            return "Tipo de servicio removido del cuidador correctamente.";
+        }
+
+        return "Error al remover el tipo de servicio del cuidador.";
+    }
     
 }
