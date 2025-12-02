@@ -20,7 +20,7 @@ import niddu.Models.Dtos.CuidadorTipoServicioDto;
 import niddu.Models.Dtos.DepartamentoDto;
 import niddu.Models.Dtos.DireccionDto;
 import niddu.Models.Dtos.PersonaDto;
-import niddu.Models.Dtos.ServicioCompletoDto2;
+import niddu.Models.Dtos.ServicioCompletoDto3;
 import niddu.Repositories.CuidadorRepository;
 import niddu.Repositories.CuidadorTipoServicioRepository;
 import niddu.Repositories.DetalleServicioRepository;
@@ -206,19 +206,20 @@ public CuidadorDto obtenerCuidadorDtoPorId(int id) {
         return true;
     }
 
-    public List<ServicioCompletoDto2> obtenerDetalleDeTodosLosServicios(int idCuidador) {
+    public List<ServicioCompletoDto3> obtenerDetalleDeTodosLosServicios(int idCuidador) {
 
         Cuidador cuidador = cuidadorRepository.findById(idCuidador).get();
 
         List<Servicio> servicios = servicioRepository.findAllByCuidador(cuidador);
 
-        List<ServicioCompletoDto2> dtoList = new ArrayList<>();
+        List<ServicioCompletoDto3> dtoList = new ArrayList<>();
         
         for (Servicio servicio : servicios) {
-            ServicioCompletoDto2 servicioCompletoDto = new ServicioCompletoDto2();
-            servicioCompletoDto.setNombreCuidador(servicio.getCuidador().getPersona().getNombres());
-            servicioCompletoDto.setApellidoCuidador(servicio.getCuidador().getPersona().getApellidos());
-            servicioCompletoDto.setNombreMascota(servicio.getMascota().getNombre());;
+            ServicioCompletoDto3 servicioCompletoDto = new ServicioCompletoDto3();
+            servicioCompletoDto.setNombreUsuario(servicio.getUsuario().getPersona().getNombres());
+            servicioCompletoDto.setApellidoUsuario(servicio.getUsuario().getPersona().getApellidos());
+            servicioCompletoDto.setTelefonoUsuario(servicio.getUsuario().getPersona().getTelefono());
+            servicioCompletoDto.setMascota(servicio.getMascota());
             servicioCompletoDto.setNombreServicio(servicio.getTipoServicio().getNombreServicio());
 
             DetalleServicio detalleServicio = detalleServicioRepository.findByServicio(servicio);
