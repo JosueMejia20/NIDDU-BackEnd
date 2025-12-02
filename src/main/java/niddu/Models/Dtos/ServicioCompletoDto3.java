@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 @Data
 public class ServicioCompletoDto3 {
+    private int idServicio;
     private String nombreUsuario;
     private String apellidoUsuario;
     private String telefonoUsuario;

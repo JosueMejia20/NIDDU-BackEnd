@@ -216,6 +216,7 @@ public CuidadorDto obtenerCuidadorDtoPorId(int id) {
         
         for (Servicio servicio : servicios) {
             ServicioCompletoDto3 servicioCompletoDto = new ServicioCompletoDto3();
+            servicioCompletoDto.setIdServicio(servicio.getIdServicios());
             servicioCompletoDto.setNombreUsuario(servicio.getUsuario().getPersona().getNombres());
             servicioCompletoDto.setApellidoUsuario(servicio.getUsuario().getPersona().getApellidos());
             servicioCompletoDto.setTelefonoUsuario(servicio.getUsuario().getPersona().getTelefono());
