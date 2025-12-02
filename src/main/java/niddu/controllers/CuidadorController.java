@@ -11,6 +11,7 @@ import niddu.Models.Dtos.CuidadorDto;
 import niddu.Models.Dtos.CuidadorTipoServicioDto;
 import niddu.Models.Dtos.ServicioCompletoDto2;
 import niddu.Services.CuidadorService;
+import niddu.Services.ServicioService;
 
 @RestController
 @RequestMapping("/cuidadores")
@@ -19,6 +20,9 @@ public class CuidadorController {
 
     @Autowired
     private CuidadorService cuidadorService;
+
+    @Autowired
+    private ServicioService servicioService;
 
     @PostMapping("/registrar")
     public String registrarCuidador(@RequestBody Cuidador cuidador) {
@@ -79,6 +83,14 @@ public class CuidadorController {
     @GetMapping(path = "/obtenerHistorialReservas/{idCuidador}")
     public List<ServicioCompletoDto2> obtenerHistorialDeReservas(@PathVariable(name = "idCuidador") int idCuidador) {
         return cuidadorService.obtenerDetalleDeTodosLosServicios(idCuidador);
+    }
+
+    @PutMapping("actualizarEstadoReserva/{idServicio}/{nuevoEstado}")
+    public String actualizarEstadoReserva(@PathVariable(name = "idServicio") int idServicio, @PathVariable(name = "nuevoEstado") int nuevoEstado) {
+        if(servicioService.cambiarEstadoReserva(idServicio, nuevoEstado))
+            return "El estado de la reserva se actualizo correctamente.";
+
+        return "Error al actualizar el estado de la reserva.";
     }
     
 

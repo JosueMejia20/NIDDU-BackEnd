@@ -82,5 +82,34 @@ public class ServicioService {
         return tipoServicioRepository.findAll();
     }
 
+    public boolean cambiarEstadoReserva(int idServicio, int nuevoEstado) {
+
+        Servicio servicio = servicioRepository.findById(idServicio).orElseThrow();
+        DetalleServicio detalle = detalleServicioRepository.findByServicio(servicio);
+        
+        switch (nuevoEstado) {
+            case 1:
+                detalle.setEstado("Pendiente");
+                detalleServicioRepository.save(detalle);
+                return true;
+            case 2:
+                detalle.setEstado("Confirmado");
+                detalleServicioRepository.save(detalle);
+                return true;
+            case 3:
+                detalle.setEstado("Rechazado");
+                detalleServicioRepository.save(detalle);
+                return true;
+            case 4:
+                detalle.setEstado("Completado");
+                detalleServicioRepository.save(detalle);
+                return true;
+            default:
+                break;
+        }
+
+        return false;
+    }
+
     
 }
